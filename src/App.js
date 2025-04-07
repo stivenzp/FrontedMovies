@@ -8,7 +8,7 @@ import { DirectorView } from './Componentes/Director/DirectorView'
 import { GeneroView } from './Componentes/Genero/GeneroView'
 import { MediaView } from './Componentes/Media/MediaView'
 import { ProductoraView } from './Componentes/Productora/ProductoraView'
-import { TipoViewv } from './Componentes/Tipo/TipoViewv'
+import { TipoView } from './Componentes/Tipo/TipoView'
 import {MediaUpdate} from './Componentes/Media/MediaUpdate'
 
 
@@ -22,7 +22,7 @@ function App() {
       <Route exact path="/director" component={DirectorView}/>
       <Route exact path="/genero" component={GeneroView}/>
       <Route exact path="/productora" component={ProductoraView}/>
-      <Route exact path="/tipo" component={TipoViewv}/>
+      <Route exact path="/tipo" component={TipoView}/>
       <Route exact path="/usuario" component={UserView}/>
       <Route exact path="/media/edit/:mediaId" component= {MediaUpdate}/>
       <Redirect to= '/'/>

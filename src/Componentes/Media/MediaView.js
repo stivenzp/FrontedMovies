@@ -2,18 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { getMedia } from '../../Services/mediaServices';
 import { MediaCards } from '../Media/MediaCards';
 import { MediaNew } from './MediaNew';
+import Swal from 'sweetalert2';
+import './MediaView.css'; 
 
 export const MediaView = () => {
   const [medias, setMedia] = useState([]); 
-  const [ openModal, setOpenModal] = useState();
+  const [openModal, setOpenModal] = useState();
 
   const listMedia = async () => { 
     try {
+      Swal.fire({
+        allowOutsideClick: false,
+        text: 'Cargando...',
+      });
+      Swal.showLoading();
       const { data } = await getMedia();
-      console.log(data);
+      Swal.close();
       setMedia(data); 
     } catch (error) {
       console.error("Error al obtener los medios:", error);
+      Swal.close();
     }
   };
 
@@ -21,11 +29,9 @@ export const MediaView = () => {
     listMedia(); 
   }, []);
 
-const handleOpenModal = () => {
-  setOpenModal(!openModal)
-}
-
-
+  const handleOpenModal = () => {
+    setOpenModal(!openModal);
+  };
 
   return (
     <div className="container"> 
@@ -37,13 +43,14 @@ const handleOpenModal = () => {
         }
       </div>
       {
-        openModal ? <MediaNew handleOpenModal = { handleOpenModal }
-        listMedia = {listMedia}/> :
-        <button className ='btn btn-primary newInv' onClick={ handleOpenModal }>
-          <i className="fa-solid fa-plus"></i>
+        openModal ? (
+          <MediaNew handleOpenModal={handleOpenModal} listMedia={listMedia} />
+        ) : (
+          <button className="media-add-button" onClick={handleOpenModal}>
+            <i className="fa-solid fa-plus"></i>
           </button>
+        )
       }
-
     </div>
   );
 };
